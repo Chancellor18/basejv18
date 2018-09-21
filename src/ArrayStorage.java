@@ -15,7 +15,7 @@ public class ArrayStorage {
     void save(Resume r) {
         for (int i = 0; i < sizeOfResume; i++) {
             if (storage[i].uuid.equals(r.uuid)) {
-                System.out.println("Резюме " + r.uuid + " уже введено");
+                System.out.println("Resume" + r.uuid + " Putted");
                 return;
             }
         }
@@ -25,7 +25,7 @@ public class ArrayStorage {
             return;
         }
         if (sizeOfResume == storage.length) {
-            System.out.println("Массив полон");
+            System.out.println("Full Arrays");
             return;
         }
     }
@@ -48,7 +48,7 @@ public class ArrayStorage {
                 return;
             }
         }
-        System.out.println("Резюме " + uuid + " не существует");
+        System.out.println("Resume" + uuid + " There is no have");
     }
 
     Resume[] getAll() {
