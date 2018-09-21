@@ -51,7 +51,7 @@ public class ArrayStorage {
         System.out.println("Resume" + uuid + " There is no have");
     }
 
-    Resume[] getAll() {
+    Resume[] getAll() { // Моментальный возврат
         return Arrays.copyOfRange(storage, 0, sizeOfResume);
     }
 
