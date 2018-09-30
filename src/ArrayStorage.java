@@ -1,62 +1,69 @@
 import java.util.Arrays;
 
 public class ArrayStorage {
-
     private Resume[] storage = new Resume[10000];
-    private int sizeOfResume = 0;
+    private int size = 0;
 
     void clear() {
-        for (int i = 0; i < sizeOfResume; i++) {
-            storage[i] = null;
-        }
-        sizeOfResume = 0;
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
-    void save(Resume r) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(r.uuid)) {
-                System.out.println("Resume" + r.uuid + " Putted");
-                return;
-            }
+    void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Error");
+        } else {
+            storage[index] = resume;
         }
-        if (sizeOfResume < storage.length) {
-            storage[sizeOfResume] = r;
-            sizeOfResume++;
-            return;
-        }
-        if (sizeOfResume == storage.length) {
-            System.out.println("Full Arrays");
-            return;
+    }
+
+    void save(Resume resume) {
+        if (getIndex(resume.getUuid()) != -1) {
+            System.out.println("Ошибка");
+        } else if (size >= storage.length) {
+            System.out.println("Места больше нет");
+        } else {
+            storage[size] = resume;
+            size++;
         }
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return storage[i];
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Error");
+            return null;
+        } else {
+            return storage[index];
         }
-        return null;
     }
-
     void delete(String uuid) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[sizeOfResume - 1];
-                storage[sizeOfResume - 1] = null;
-                sizeOfResume--;
-                return;
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Error");
+        } else {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
-        System.out.println("Resume" + uuid + " There is no have");
+
     }
 
-    Resume[] getAll() { // Моментальный возврат
-        return Arrays.copyOfRange(storage, 0, sizeOfResume);
+    Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        return sizeOfResume;
+        return size;
+    }
+
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
-
