@@ -20,9 +20,9 @@ public class ArrayStorage {
 
     void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
-            System.out.println("Ошибка");
+            System.out.println("Error");
         } else if (size >= storage.length) {
-            System.out.println("Места больше нет");
+            System.out.println("Full");
         } else {
             storage[size] = resume;
             size++;
